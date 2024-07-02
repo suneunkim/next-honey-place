@@ -1,5 +1,5 @@
 import React from 'react'
-import NotificationIcon from '@/app/assets/icons/notification.svg'
+import NotificationIcon from '@/assets/icons/notification.svg'
 const Header = () => {
   return (
     <header className='flex h-[48px] items-center justify-between px-[20px]'>

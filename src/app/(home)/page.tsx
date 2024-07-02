@@ -1,6 +1,6 @@
-import LoginButton from '../shared/components/common/LoginButton'
-import Header from '../shared/components/common/Header'
-import Footer from '../shared/components/common/Footer'
+import LoginButton from '../../shared/components/common/LoginButton'
+import Header from '../../shared/components/common/Header'
+import Footer from '../../shared/components/common/Footer'
 
 export default function Home() {
   return (

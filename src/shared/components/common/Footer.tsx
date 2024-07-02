@@ -1,7 +1,8 @@
 import React from 'react'
-import HomeIcon from '@/app/assets/icons/home.svg'
-import MapIcon from '@/app/assets/icons/map.svg'
 import Link from 'next/link'
+import MapIcon from '@/assets/icons/map.svg'
+import HomeIcon from '@/assets/icons/home.svg'
+
 const Footer = () => {
   return (
     <footer className='fixed bottom-0 grid grid-cols-2 items-center border bg-white px-[20px] w-[360px] '>
