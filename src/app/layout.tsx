@@ -1,3 +1,4 @@
+import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -11,9 +12,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body>
-        <div className="w-[360px] mx-auto">{children}</div>
+        <div className='mx-auto w-[360px]'>{children}</div>
       </body>
     </html>
   )
