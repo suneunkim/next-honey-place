@@ -5,7 +5,7 @@ const Header = () => {
     <header className='flex h-[48px] items-center justify-between px-[20px]'>
       <div className='flex items-center'>
         <img src='/honey_spot.PNG' width={30} />
-        <p>맛집</p>
+        <p className='font-bold'>맛집</p>
       </div>
       <NotificationIcon />
     </header>
