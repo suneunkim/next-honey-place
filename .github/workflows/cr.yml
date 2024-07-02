@@ -2,7 +2,7 @@ name: Code Review From ChatGPT
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read
 
 on:
   pull_request:
@@ -18,10 +18,3 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Korean
           MODEL: gpt-3.5-turbo
-          REQUEST: >
-            다음 Pull Request에 대한 코드를 간결하고 핵심적으로 리뷰해 주세요. 아래의 세부 사항에 따라 검토해 주세요:
-            1. 추가된 기능 요약
-            2. 리뷰 포인트:
-              - 리팩토링 제안
-            리뷰를 간결하게 작성해 주세요. 불필요한 설명을 피하고 핵심적인 부분만 언급해 주세요.
-          FILE_PATTERNS: 'src/**/*.tsx'
