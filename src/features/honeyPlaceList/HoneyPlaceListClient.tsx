@@ -1,11 +1,8 @@
-import React from 'react'
 import HoneyPlaceCard from './HoneyPlaceCard'
 import PlaceFloatingButton from './PlaceFloatingButton'
-import { getHoneyPlaces } from '@/app/api/getHoneyPlace'
+import { HoneyPlace } from '@/interfaces/IPlace'
 
-const HoneyPlaceList = async () => {
-  const places = await getHoneyPlaces()
-
+const HoneyPlaceListClinet = ({ places }: { places: HoneyPlace[] }) => {
   return (
     <div className='flex justify-center mb-14'>
       <section className='mt-16 grid grid-cols-2 gap-3 items-center'>
@@ -18,4 +15,4 @@ const HoneyPlaceList = async () => {
   )
 }
 
-export default HoneyPlaceList
+export default HoneyPlaceListClinet
