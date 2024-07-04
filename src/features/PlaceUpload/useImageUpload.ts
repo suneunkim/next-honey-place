@@ -1,7 +1,7 @@
 'use client'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { storage } from '@root/firebase'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { UserProfileType } from '@/hook/useCurrentAuth'
 
 interface Props {

@@ -6,7 +6,7 @@ type Places = {
   address: string
 }
 
-const initailPlace = [
+const initialPlace = [
   {
     name: '개인카페',
     address: '서울시 강서구 등촌동',
@@ -184,7 +184,7 @@ const initialDataUpload = async (places: Places[]) => {
 }
 
 const initialData = () => {
-  initialDataUpload(initailPlace)
+  initialDataUpload(initialPlace)
 }
 
 export default initialData
