@@ -83,7 +83,10 @@ const SearchModalList = () => {
 
       {searchQuery.length > 0 && (
         <Link href={'/place/newplace'}>
-          <button className='fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white w-48 h-9 rounded-lg z-50 text-sm'>
+          <button
+            onClick={() => closeSearchModal()}
+            className='fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white w-48 h-9 rounded-lg z-50 text-sm'
+          >
             새로운 꿀플레이스 추가하기
           </button>
         </Link>

@@ -9,6 +9,7 @@ interface StoreState {
   setInitialName: () => void
   updateName: (name: string) => void
   updateAddress: (address: string, lat?: number, lng?: number) => void
+  clearState: () => void
 }
 
 const useStore = create<StoreState>((set) => ({
@@ -16,6 +17,8 @@ const useStore = create<StoreState>((set) => ({
   address: '',
   latitude: null,
   longitude: null,
+  images: [],
+  files: [],
   setInitialName: () => {
     if (typeof window !== 'undefined') {
       const storedName = localStorage.getItem('name')
@@ -32,6 +35,7 @@ const useStore = create<StoreState>((set) => ({
   },
   updateAddress: (newAddress, lat, lng) =>
     set({ address: newAddress, latitude: lat, longitude: lng }),
+  clearState: () => set({ name: '', address: '' }),
 }))
 
 export default useStore

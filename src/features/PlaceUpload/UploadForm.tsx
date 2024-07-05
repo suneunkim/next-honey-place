@@ -11,7 +11,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '@root/firebase'
 import useCurrentAuth from '@/hook/useCurrentAuth'
 import useImageUpload from './useImageUpload'
-
+import useImageStore from '@/stores/useimageStore'
 interface FormValues {
   name: string
   address: string
@@ -39,6 +39,8 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
   const [isLoading, setIsLoading] = useState(false) // 중복 제출 방지
   const name = useStore((state) => state.name)
   const address = useStore((state) => state.address)
+  const clearState = useStore((state) => state.clearState)
+  const { files, setFiles } = useImageStore()
 
   const userProfile = useCurrentAuth()
 
@@ -46,10 +48,11 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     setValue('images', value)
   }
 
-  const { imageURLs, setImageURLs, files, handleFileSelect, handleRemoveImage, uploadFile } =
+  const { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage, uploadFile } =
     useImageUpload({
       userProfile,
       imageSetValue,
+      setFiles,
     })
 
   // 새로고침에도 이미지 유지를 위해서 watch 대신 useEffect와 setValue 사용
@@ -95,7 +98,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
 
       localStorage.removeItem('name')
       localStorage.removeItem('images')
-
+      clearState()
       router.push('/')
     } catch (error) {
       console.error('Error uploading files: ', error)
