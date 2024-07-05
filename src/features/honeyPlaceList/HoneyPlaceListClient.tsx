@@ -5,6 +5,7 @@ import PlaceFloatingButton from './PlaceFloatingButton'
 import { HoneyPlace } from '@/interfaces/IPlace'
 import { getHoneyPlaces } from '@/app/api/getHoneyPlace'
 import { useRouter } from 'next/navigation'
+import initialData from '@/app/api/initialData'
 
 const HoneyPlaceListClinet = ({ initialPlaces }: { initialPlaces: HoneyPlace[] }) => {
   const [places, setPlaces] = useState(initialPlaces)
