@@ -1,6 +1,7 @@
 import Header from '../../shared/components/common/Header'
 import Footer from '../../shared/components/common/Footer'
-import HoneyPlaceListServer from '@/features/honeyPlaceList/HoneyPlaceListServer'
+import { getHoneyPlaces } from '../api/getHoneyPlace'
+import HoneyPlaceListClinet from '@/features/honeyPlaceList/HoneyPlaceListClient'
 
 export default function Home() {
   return (
@@ -10,4 +11,9 @@ export default function Home() {
       <Footer />
     </main>
   )
+}
+
+const HoneyPlaceListServer = async () => {
+  const places = await getHoneyPlaces()
+  return <HoneyPlaceListClinet initialPlaces={places} />
 }

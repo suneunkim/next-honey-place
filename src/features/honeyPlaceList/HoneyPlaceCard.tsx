@@ -1,9 +1,9 @@
 import React from 'react'
 import MarkerIcon from '@/assets/icons/marker.svg'
 import { HoneyPlace } from '@/interfaces/IPlace'
+import truncateAddress from '@/utils/truncateAddress'
 
-const cardContainer =
-  'flex flex-col w-[154px] h-[301px] gap-[10px] rounded-[4px] overflow-hidden'
+const cardContainer = 'flex flex-col w-[154px] h-[301px] gap-[10px] rounded-[4px] overflow-hidden'
 const imageContainer = 'w-[150px] h-[200px] bg-slate-100'
 const imageClass = 'w-full h-full object-cover'
 const textContainer = 'px-[2px]'
@@ -12,8 +12,7 @@ const titleClass =
 const descriptionClass =
   'text-[12px] font-medium leading-[18px] text-left text-[#5f5f5f] whitespace-nowrap overflow-hidden text-ellipsis'
 const addressContainer = 'flex items-center gap-[2px]'
-const addressText =
-  'text-[11px] font-medium leading-[18px] text-left text-[#777777]'
+const addressText = 'text-[11px] font-medium leading-[18px] text-left text-[#777777]'
 
 const HoneyPlaceCard = ({ place }: { place: HoneyPlace }) => {
   return (
@@ -26,7 +25,7 @@ const HoneyPlaceCard = ({ place }: { place: HoneyPlace }) => {
         <p className={descriptionClass}>{place?.description}</p>
         <div className={addressContainer}>
           <MarkerIcon />
-          <span className={addressText}>{place?.address}</span>
+          <span className={addressText}>{truncateAddress(place?.address)}</span>
         </div>
       </div>
     </div>

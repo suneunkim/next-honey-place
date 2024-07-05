@@ -7,11 +7,11 @@ import { UserProfileType } from '@/hook/useCurrentAuth'
 interface Props {
   userProfile: UserProfileType | null
   imageSetValue: (updatedImages: string[]) => void
+  setFiles: (files: (prevFiles: File[]) => File[]) => void
 }
 
-const useImageUpload = ({ userProfile, imageSetValue }: Props) => {
+const useImageUpload = ({ userProfile, imageSetValue, setFiles }: Props) => {
   const [imageURLs, setImageURLs] = useState<string[]>([])
-  const [files, setFiles] = useState<File[]>([])
 
   // 사진 등록으로 선택한 파일
   const handleFileSelect = async (files: FileList) => {
@@ -19,6 +19,7 @@ const useImageUpload = ({ userProfile, imageSetValue }: Props) => {
     const urlArray = fileArray.map((file) => URL.createObjectURL(file) as string)
 
     setFiles((prevFiles) => [...prevFiles, ...fileArray])
+
     setImageURLs((prevImages) => {
       const updatedImages = [...prevImages, ...urlArray]
       imageSetValue(updatedImages)
@@ -35,7 +36,8 @@ const useImageUpload = ({ userProfile, imageSetValue }: Props) => {
       localStorage.setItem('images', JSON.stringify(updatedImages))
       return updatedImages
     })
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index))
+
+    //setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index))
   }
 
   // 파이어베이스 스토리지 업로드
@@ -46,7 +48,7 @@ const useImageUpload = ({ userProfile, imageSetValue }: Props) => {
     return url
   }
 
-  return { imageURLs, setImageURLs, files, handleFileSelect, handleRemoveImage, uploadFile }
+  return { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage, uploadFile }
 }
 
 export default useImageUpload
