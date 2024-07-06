@@ -1,11 +1,35 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
+import { VirtuosoGrid } from 'react-virtuoso'
 import HoneyPlaceCard from './HoneyPlaceCard'
 import PlaceFloatingButton from './PlaceFloatingButton'
 import { HoneyPlace } from '@/interfaces/IPlace'
 import { getHoneyPlaces } from '@/app/api/getHoneyPlace'
 import { useRouter } from 'next/navigation'
-import { Virtuoso } from 'react-virtuoso'
+
+const gridComponents = {
+  List: forwardRef(({ style, children, ...props }: any, ref) => (
+    <div
+      ref={ref}
+      {...props}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '1rem',
+        ...style,
+      }}
+      className='mt-16 items-center'
+    >
+      {children}
+    </div>
+  )),
+
+  Item: ({ children, ...props }: any) => (
+    <div className='p-3' {...props}>
+      {children}
+    </div>
+  ),
+}
 
 const HoneyPlaceListClinet = ({ initialPlaces }: { initialPlaces: HoneyPlace[] }) => {
   const [places, setPlaces] = useState(initialPlaces)
@@ -22,14 +46,12 @@ const HoneyPlaceListClinet = ({ initialPlaces }: { initialPlaces: HoneyPlace[] }
 
   return (
     <div className='flex justify-center mb-14'>
-      <section className='mt-16 grid grid-cols-2 gap-3 items-center'>
-        <Virtuoso
+      <section className='w-full'>
+        <VirtuosoGrid
           useWindowScroll
-          increaseViewportBy={0} // 시작점
+          components={gridComponents}
+          itemContent={(index) => <HoneyPlaceCard key={places[index].id} place={places[index]} />}
           data={places}
-          itemContent={(index, place) => {
-            return <HoneyPlaceCard key={place.id} place={place} />
-          }}
         />
         <PlaceFloatingButton />
       </section>
