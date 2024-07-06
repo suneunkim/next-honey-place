@@ -7,7 +7,7 @@ import { HoneyPlace } from '@/interfaces/IPlace'
 import { getHoneyPlaces } from '@/app/api/getHoneyPlace'
 import { useRouter } from 'next/navigation'
 
-const gridComponents = {
+const gridComponents: any = {
   List: forwardRef(({ style, children, ...props }: any, ref) => (
     <div
       ref={ref}
@@ -15,10 +15,12 @@ const gridComponents = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '1rem',
+        gap: '0.25rem',
+        justifyItems: 'center', // 수평 정렬
+        alignItems: 'center', // 수직 정렬
         ...style,
       }}
-      className='mt-16 items-center'
+      className='mt-16'
     >
       {children}
     </div>
@@ -45,8 +47,8 @@ const HoneyPlaceListClinet = ({ initialPlaces }: { initialPlaces: HoneyPlace[] }
   // }, [router])
 
   return (
-    <div className='flex justify-center mb-14'>
-      <section className='w-full'>
+    <div className='flex justify-center mb-20'>
+      <section className='w-full' style={{ paddingBottom: '20px' }}>
         <VirtuosoGrid
           useWindowScroll
           components={gridComponents}
