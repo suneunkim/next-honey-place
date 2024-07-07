@@ -183,7 +183,38 @@ const initialDataUpload = async (places: Places[]) => {
   }
 }
 
+// 렌더링 최적화 테스트용 목업 게시물 생성
+const placesUpload = async (places: any[]) => {
+  const batch = writeBatch(db)
+  const placesRef = collection(db, 'honey_place')
+  try {
+    places.forEach((place) => {
+      const docRef = doc(placesRef) // 자동 생성 ID를 위한 docRef
+      batch.set(docRef, place) // batch에 추가
+    })
+    await batch.commit()
+    console.log('일괄 업로드 성공')
+  } catch (error) {
+    console.error('업로드 오류 발생', error)
+  }
+}
+
 const initialData = () => {
+  // const initialPlaces2 = []
+
+  // for (let i = 0; i < 50; i++) {
+  //   initialPlaces2.push({
+  //     name: `최적화 테스트용 Place ${i}`,
+  //     description: `Description for Place ${i}`,
+  //     address: `서울시 영등포구 여의도동`,
+  //     images: [
+  //       'https://firebasestorage.googleapis.com/v0/b/honey-place.appspot.com/o/images%2FKtnP4nHvoghaz9CvFqcUbOLkGrl1%2F%ED%94%84%EB%A1%9C%EA%B7%B8%EB%B9%88.PNG?alt=media&token=c3527f2f-e82c-4c59-afd3-4cfb6efbb355',
+  //     ],
+  //     createdAt: new Date(),
+  //   })
+  // }
+
+  // placesUpload(initialPlaces2)
   initialDataUpload(initialPlace)
 }
 

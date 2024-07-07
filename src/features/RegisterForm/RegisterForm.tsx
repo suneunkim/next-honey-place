@@ -26,11 +26,7 @@ const RegisterForm = () => {
     const { nickname, email, password } = formData
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        fireauth,
-        email,
-        password
-      )
+      const userCredential = await createUserWithEmailAndPassword(fireauth, email, password)
       const user = userCredential.user
       const userDoc = doc(db, 'users', user.uid)
 
@@ -52,10 +48,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col p-5 mt-28'
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col p-5 mt-28'>
         <div className='flex flex-col gap-2'>
           <Input
             name='email'

@@ -35,16 +35,16 @@ const gridComponents: any = {
 
 const HoneyPlaceListClinet = ({ initialPlaces }: { initialPlaces: HoneyPlace[] }) => {
   const [places, setPlaces] = useState(initialPlaces)
-  // const router = useRouter()
+  const router = useRouter()
 
-  // useEffect(() => {
-  //   const fetchPlaces = async () => {
-  //     const updatedPlaces = await getHoneyPlaces()
-  //     setPlaces(updatedPlaces)
-  //   }
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      const updatedPlaces = await getHoneyPlaces()
+      setPlaces(updatedPlaces)
+    }
 
-  //   fetchPlaces()
-  // }, [router])
+    fetchPlaces()
+  }, [router])
 
   return (
     <div className='flex justify-center mb-20'>
