@@ -68,6 +68,10 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
   }, [name, address, setValue])
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
+    if (!userProfile) {
+      alert('로그인이 필요합니다')
+      return
+    }
     setIsLoading(true)
     const { name, address, description } = formData
 
@@ -95,6 +99,21 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
       }
 
       await addDoc(placeDocRef, newPlace)
+
+      // 게시물 등록 후 서버에 알림 생성 요청
+      const response = await fetch('/api/create-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: 'Honey Place',
+          body: '새 게시물을 등록했습니다.',
+        }),
+      })
+
+      const result = await response.json()
+      console.log('Response from server:', result)
 
       localStorage.removeItem('name')
       localStorage.removeItem('images')
