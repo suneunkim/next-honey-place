@@ -6,11 +6,11 @@ import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: 'honey-place.firebaseapp.com',
-  projectId: 'honey-place',
-  storageBucket: 'honey-place.appspot.com',
-  messagingSenderId: '484564288617',
-  appId: '1:484564288617:web:899a6e9d325f14109f0ef8',
+  authDomain: 'next-place-aa5ab.firebaseapp.com',
+  projectId: 'next-place-aa5ab',
+  storageBucket: 'next-place-aa5ab.appspot.com',
+  messagingSenderId: '511880166660',
+  appId: '1:511880166660:web:0adb4fc56b17218f632451',
 }
 
 // Initialize Firebase
