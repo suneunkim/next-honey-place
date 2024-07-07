@@ -8,6 +8,9 @@ const nextConfig = {
 
     return config
   },
+  images: {
+    domains: ['firebasestorage.googleapis.com'], // 외부 도메인 추가
+  },
 }
 
 export default nextConfig

@@ -8,7 +8,7 @@ export interface ISearchResult {
 export interface HoneyPlace {
   name: string
   images: string[]
-  createdAt: Timestamp
+  createdAt?: Timestamp
   description: string
   address: string
   id: string
