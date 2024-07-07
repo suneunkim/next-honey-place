@@ -15,7 +15,7 @@ export default function Home() {
 }
 
 const HoneyPlaceListServer = async () => {
-  //const places = await getHoneyPlaces()
+  const places = await getHoneyPlaces()
 
-  return <HoneyPlaceListClinet initialPlaces={mockPlaces} />
+  return <HoneyPlaceListClinet initialPlaces={places} />
 }

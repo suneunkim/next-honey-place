@@ -200,21 +200,22 @@ const placesUpload = async (places: any[]) => {
 }
 
 const initialData = () => {
-  const initialPlaces2 = []
+  // const initialPlaces2 = []
 
-  for (let i = 0; i < 50; i++) {
-    initialPlaces2.push({
-      name: `최적화 테스트용 Place ${i}`,
-      description: `Description for Place ${i}`,
-      address: `서울시 영등포구 여의도동`,
-      images: [
-        'https://firebasestorage.googleapis.com/v0/b/honey-place.appspot.com/o/images%2FKtnP4nHvoghaz9CvFqcUbOLkGrl1%2F%ED%94%84%EB%A1%9C%EA%B7%B8%EB%B9%88.PNG?alt=media&token=c3527f2f-e82c-4c59-afd3-4cfb6efbb355',
-      ],
-      createdAt: new Date(),
-    })
-  }
+  // for (let i = 0; i < 50; i++) {
+  //   initialPlaces2.push({
+  //     name: `최적화 테스트용 Place ${i}`,
+  //     description: `Description for Place ${i}`,
+  //     address: `서울시 영등포구 여의도동`,
+  //     images: [
+  //       'https://firebasestorage.googleapis.com/v0/b/honey-place.appspot.com/o/images%2FKtnP4nHvoghaz9CvFqcUbOLkGrl1%2F%ED%94%84%EB%A1%9C%EA%B7%B8%EB%B9%88.PNG?alt=media&token=c3527f2f-e82c-4c59-afd3-4cfb6efbb355',
+  //     ],
+  //     createdAt: new Date(),
+  //   })
+  // }
 
-  placesUpload(initialPlaces2)
+  // placesUpload(initialPlaces2)
+  initialDataUpload(initialPlace)
 }
 
 export default initialData
