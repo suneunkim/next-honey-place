@@ -40,7 +40,8 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
   const name = useStore((state) => state.name)
   const address = useStore((state) => state.address)
   const clearState = useStore((state) => state.clearState)
-  const { files, setFiles } = useImageStore()
+  const clearFileState = useStore((state) => state.clearFileState)
+  const { files, setFiles } = useStore()
 
   const userProfile = useCurrentAuth()
 
@@ -67,6 +68,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     }
   }, [name, address, setValue])
 
+  console.log(files)
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     if (!userProfile) {
       alert('로그인이 필요합니다')
@@ -113,11 +115,12 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
       })
 
       const result = await response.json()
-      console.log('Response from server:', result)
 
       localStorage.removeItem('name')
       localStorage.removeItem('images')
       clearState()
+      clearFileState()
+
       router.push('/')
     } catch (error) {
       console.error('Error uploading files: ', error)

@@ -42,7 +42,8 @@ const useImageUpload = ({ userProfile, imageSetValue, setFiles }: Props) => {
 
   // 파이어베이스 스토리지 업로드
   const uploadFile = async (file: File) => {
-    const storageRef = ref(storage, `images/${userProfile?.uid}/${file.name}`)
+    const uniqueFileName = `${Date.now()}_${file.name}` // 파일 이름 고유화
+    const storageRef = ref(storage, `images/${userProfile?.uid}/${uniqueFileName}`)
     await uploadBytes(storageRef, file)
     const url = await getDownloadURL(storageRef)
     return url

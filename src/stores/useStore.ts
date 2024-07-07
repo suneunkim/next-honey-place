@@ -6,9 +6,13 @@ interface StoreState {
   address: string
   latitude?: number | null
   longitude?: number | null
+  images: string[]
+  files: File[]
   setInitialName: () => void
   updateName: (name: string) => void
   updateAddress: (address: string, lat?: number, lng?: number) => void
+  setFiles: (files: (prevFiles: File[]) => File[]) => void
+  clearFileState: () => void
   clearState: () => void
 }
 
@@ -35,7 +39,9 @@ const useStore = create<StoreState>((set) => ({
   },
   updateAddress: (newAddress, lat, lng) =>
     set({ address: newAddress, latitude: lat, longitude: lng }),
-  clearState: () => set({ name: '', address: '' }),
+  setFiles: (updater) => set((state) => ({ files: updater(state.files) })),
+  clearFileState: () => set({ files: [] }),
+  clearState: () => set({ name: '', address: '', files: [], images: [] }),
 }))
 
 export default useStore
