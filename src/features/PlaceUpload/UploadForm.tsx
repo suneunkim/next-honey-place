@@ -107,8 +107,8 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: 'Honey Place',
-          body: '새 게시물을 등록했습니다.',
+          title: 'New Honey Place',
+          body: '새로운 맛집이 등록되었습니다!',
         }),
       })
 
