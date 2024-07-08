@@ -1,5 +1,5 @@
-import SearchMap from '@/features/PlaceUpload/NewPlace/SearchMap'
-import SearchMapButton from '@/features/PlaceUpload/NewPlace/SearchMapButton'
+import SearchMap from '@/features/placeUpload/NewPlace/SearchMap'
+import SearchMapButton from '@/features/placeUpload/NewPlace/SearchMapButton'
 
 const page = () => {
   return (
