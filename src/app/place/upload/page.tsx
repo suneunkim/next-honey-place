@@ -1,7 +1,7 @@
 'use client'
 
-import SearchModal from '@/features/PlaceUpload/VitiedPlace/SearchModal'
-import UploadForm from '@/features/PlaceUpload/UploadForm'
+import SearchModal from '@/features/placeUpload/VitiedPlace/SearchModal'
+import UploadForm from '@/features/placeUpload/UploadForm'
 import useModalStore from '@/stores/useModalStore'
 
 export const LogtitleClass =

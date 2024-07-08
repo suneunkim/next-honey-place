@@ -1,5 +1,5 @@
 'use client'
-import ImageAdd from '@/features/PlaceUpload/ImageAdd'
+import ImageAdd from '@/features/placeUpload/ImageAdd'
 import ImageRemoveIcon from '@/assets/icons/imageRemove.svg'
 import RightArrowIcon from '@/assets/icons/rightarrow.svg'
 import Button from '@/shared/components/elements/Button'
