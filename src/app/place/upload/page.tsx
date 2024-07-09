@@ -1,6 +1,6 @@
 'use client'
 
-import SearchModal from '@/features/placeUpload/VitiedPlace/SearchModal'
+import SearchModal from '@/features/placeUpload/visitedPlace/SearchModal'
 import UploadForm from '@/features/placeUpload/UploadForm'
 import useModalStore from '@/stores/useModalStore'
 
