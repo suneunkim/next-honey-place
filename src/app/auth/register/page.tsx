@@ -1,4 +1,4 @@
-import RegisterForm from '@/features/registerFormTemp/RegisterForm'
+import RegisterForm from '@/features/registerForm/RegisterForm'
 import Footer from '@/shared/components/common/Footer'
 import Header from '@/shared/components/common/Header'
 
