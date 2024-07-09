@@ -1,10 +1,10 @@
 'use client'
 
-import SearchModal from '@/features/placeUpload/VitiedPlace/SearchModal'
 import UploadForm from '@/features/placeUpload/UploadForm'
+import SearchModal from '@/features/placeUpload/visitedPlace/SearchModal'
 import useModalStore from '@/stores/useModalStore'
 
-export const LogtitleClass =
+const LogtitleClass =
   'text-[16px] font-bold leading-[22px] text-center text-[#1c1c1c] py-[13px] mb-[20px]'
 
 const UploadPage = () => {

@@ -7,30 +7,35 @@ import { HoneyPlace } from '@/interfaces/IPlace'
 import { getHoneyPlaces } from '@/app/api/getHoneyPlace'
 import { useRouter } from 'next/navigation'
 
-const gridComponents: any = {
-  List: forwardRef(({ style, children, ...props }: any, ref) => (
-    <div
-      ref={ref}
-      {...props}
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '0.25rem',
-        justifyItems: 'center', // 수평 정렬
-        alignItems: 'center', // 수직 정렬
-        ...style,
-      }}
-      className='mt-16'
-    >
-      {children}
-    </div>
-  )),
+const List = forwardRef(({ style, children, ...props }: any, ref) => (
+  <div
+    ref={ref}
+    {...props}
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gap: '0.25rem',
+      justifyItems: 'center', // 수평 정렬
+      alignItems: 'center', // 수직 정렬
+      ...style,
+    }}
+    className='mt-16'
+  >
+    {children}
+  </div>
+))
+List.displayName = 'List'
 
-  Item: ({ children, ...props }: any) => (
-    <div className='p-3' {...props}>
-      {children}
-    </div>
-  ),
+const Item = ({ children, ...props }: any) => (
+  <div className='p-3' {...props}>
+    {children}
+  </div>
+)
+Item.displayName = 'Item'
+
+const gridComponents: any = {
+  List,
+  Item,
 }
 
 const HoneyPlaceListClinet = ({ initialPlaces }: { initialPlaces: HoneyPlace[] }) => {
