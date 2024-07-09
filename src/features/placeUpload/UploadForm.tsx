@@ -11,7 +11,6 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '@root/firebase'
 import useCurrentAuth from '@/hook/useCurrentAuth'
 import useImageUpload from './useImageUpload'
-import useImageStore from '@/stores/useimageStore'
 interface FormValues {
   name: string
   address: string

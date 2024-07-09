@@ -1,7 +1,7 @@
 'use client'
 
-import SearchModal from '@/features/placeUpload/visitedPlace/SearchModal'
 import UploadForm from '@/features/placeUpload/UploadForm'
+import SearchModal from '@/features/placeUpload/visitedPlace/SearchModal'
 import useModalStore from '@/stores/useModalStore'
 
 const LogtitleClass =
