@@ -57,6 +57,7 @@ const SearchModalList = () => {
             <SearchIcon />
           </button>
           <input
+            data-cy='search-modal-input'
             autoFocus
             className='h-11 rounded-3xl bg-gray-100 outline-none flex-1 text-sm'
             placeholder='플레이스명을 검색해 주세요'
@@ -84,6 +85,7 @@ const SearchModalList = () => {
       {searchQuery.length > 0 && (
         <Link href={'/place/newplace'}>
           <button
+            data-cy='add-new-place-btn'
             onClick={() => closeSearchModal()}
             className='fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white w-48 h-9 rounded-lg z-50 text-sm'
           >

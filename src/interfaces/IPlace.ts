@@ -13,3 +13,11 @@ export interface HoneyPlace {
   address: string
   id: string
 }
+
+export interface uploadNewPlace {
+  name: any
+  images: string[]
+  description: any
+  address: any
+  createdAt: Date
+}

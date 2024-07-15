@@ -41,7 +41,12 @@ const NewPlacePage = () => {
       <section className='mt-[20px] mb-[80px] h-[130px] flex flex-col gap-[10px] '>
         <div className=' flex flex-col gap-[6px]'>
           <p className={subTitle}>꿀플레이스 이름</p>
-          <input className={styles.placeName} onChange={handleSearch} value={searchQuery} />
+          <input
+            data-cy='newplace-name-input'
+            className={styles.placeName}
+            onChange={handleSearch}
+            value={searchQuery}
+          />
         </div>
         <div className={styles.description}>
           <p className={styles.description_blue}>이름 없는 장소라면, 이름을 지어주세요.</p>
@@ -55,8 +60,9 @@ const NewPlacePage = () => {
           <button>
             <SearchIcon />
           </button>
-          <Link href={'/place/map'} className='w-full'>
+          <Link data-cy='map-page-link' href={'/place/map'} className='w-full'>
             <input
+              data-cy='newplace-address-input'
               className='text-sm w-full outline-none'
               placeholder='꿀플레이스 주소를 검색해 보세요'
               readOnly
@@ -66,7 +72,7 @@ const NewPlacePage = () => {
         </div>
       </section>
       <div className={styles.submitButtonContainer}>
-        <Link href={'/place/upload'}>
+        <Link data-cy='upload-page-link' href={'/place/upload'}>
           <Button type='submit' label='완료' disabled={isDisable} />
         </Link>
       </div>

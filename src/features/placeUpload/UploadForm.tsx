@@ -7,10 +7,9 @@ import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useStore from '@/stores/useStore'
-import { addDoc, collection } from 'firebase/firestore'
-import { db } from '@root/firebase'
 import useCurrentAuth from '@/hook/useCurrentAuth'
 import useImageUpload from './useImageUpload'
+import { addHoneyPlace } from '@/utils/firebaseUtils'
 interface FormValues {
   name: string
   address: string
@@ -67,7 +66,6 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     }
   }, [name, address, setValue])
 
-  console.log(files)
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     if (!userProfile) {
       alert('로그인이 필요합니다')
@@ -89,8 +87,6 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
         })
       )
 
-      const placeDocRef = collection(db, 'honey_place')
-
       const newPlace = {
         name,
         description,
@@ -99,7 +95,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
         createdAt: new Date(),
       }
 
-      await addDoc(placeDocRef, newPlace)
+      await addHoneyPlace(newPlace)
 
       // 게시물 등록 후 서버에 알림 생성 요청
       const response = await fetch('/api/create-notification', {
@@ -167,13 +163,18 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
             <div className='relative flex items-center'>
               <div className='w-full h-[44px] px-[16px] py-[8px] gap-[8px] rounded-[4px] border border-[#c7c7c7] flex items-center'>
                 <input
+                  data-cy='upload-form-input'
                   placeholder='꿀플레이스를 선택해 주세요'
                   className='flex-grow focus:outline-none text-sm'
                   readOnly
                   value={name}
                 />
               </div>
-              <span onClick={onModalOpen} className='absolute right-[20px]'>
+              <span
+                data-cy='right-arrow-icon'
+                onClick={onModalOpen}
+                className='absolute right-[20px]'
+              >
                 <RightArrowIcon />
               </span>
             </div>
@@ -181,6 +182,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
           <section className='flex flex-col gap-[8px]'>
             <h3 className={title}>꿀플 노트</h3>
             <textarea
+              data-cy='upload-form-textarea'
               placeholder='취향에 맞는 장소였나요? 공간의 분위기, 꿀팁 등 방문하기 좋은 이유를 기록해 보세요.'
               className={textArea}
               {...register('description', { required: true })}
@@ -191,7 +193,12 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
           </section>
         </div>
         <div className='mt-[35px] mb-[40px]'>
-          <Button type='submit' label='꿀플레이스 로그 등록' disabled={!isValid} />
+          <Button
+            data-cy='upload-btn'
+            type='submit'
+            label='꿀플레이스 로그 등록'
+            disabled={!isValid}
+          />
           {/* setValue로 관리하는 값을 isValid 하기 위한 input들 */}
           <input type='hidden' {...register('name', { required: true })} />
           <input type='hidden' {...register('address', { required: true })} />
