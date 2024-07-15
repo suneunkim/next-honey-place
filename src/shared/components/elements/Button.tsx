@@ -5,9 +5,10 @@ interface ButtonProps {
   onClick?: () => void
   label: string
   disabled?: boolean
+  'data-cy'?: string
 }
 
-const Button = ({ type = 'button', onClick, label, disabled }: ButtonProps) => {
+const Button = ({ type = 'button', onClick, label, disabled, 'data-cy': dataCy }: ButtonProps) => {
   return (
     <button
       type={type}
@@ -16,6 +17,7 @@ const Button = ({ type = 'button', onClick, label, disabled }: ButtonProps) => {
         ${disabled ? 'text-gray-300 bg-gray-200' : ''}
       `}
       disabled={disabled}
+      data-cy={dataCy}
     >
       {label}
     </button>

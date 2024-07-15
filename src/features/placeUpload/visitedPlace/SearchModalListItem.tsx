@@ -12,7 +12,7 @@ const SearchModalListItem = ({ item, onClick }: Props) => {
         className='flex flex-col gap-5 mb-5 cursor-pointer'
         onClick={onClick}
       >
-        <div className='flex gap-4 items-center h-12'>
+        <div data-cy="search-modal-item" className='flex gap-4 items-center h-12'>
           <div className='w-12 h-full rounded bg-gray-300'></div>
           <div>
             <h4 className='text-sm font-semibold leading-5 text-left text-gray-900'>

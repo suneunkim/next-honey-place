@@ -15,7 +15,9 @@ const UploadPage = () => {
   return (
     <>
       <div className='mt-7 px-5'>
-        <h2 className={LogtitleClass}>꿀플레이스 로그 등록</h2>
+        <h2 data-cy='upload-title' className={LogtitleClass}>
+          꿀플레이스 로그 등록
+        </h2>
         <UploadForm onModalOpen={openSearchModal} />
       </div>
       {isSearchModal && <SearchModal onModalClose={closeSearchModal} />}

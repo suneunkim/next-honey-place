@@ -13,7 +13,7 @@ const SearchMapButton = () => {
         <p>{address}</p>
       </div>
       <Link href={'/place/newplace'}>
-        <Button label='이 위치로 등록' />
+        <Button data-cy='map-btn' label='이 위치로 등록' />
       </Link>
     </div>
   )
