@@ -20,12 +20,18 @@ jobs:
 
       - name: Build application
         run: npm run build
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_KAKAO_MAP_CLIENT: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_CLIENT }}
 
       - name: Start application
         run: |
           npm run start &> server.log &
           sleep 10  # 10초 대기 후
           cat server.log  # 로그 출력
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_KAKAO_MAP_CLIENT: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_CLIENT }}
 
       - name: Wait for application to be ready
         run: npx wait-on http://localhost:3000 --timeout 300000
@@ -34,4 +40,7 @@ jobs:
         run: curl -I http://localhost:3000
 
       - name: Run Cypress tests
-        run: npm run test
+        run: npm run test:ci
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_KAKAO_MAP_CLIENT: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_CLIENT }}
