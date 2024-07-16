@@ -2,10 +2,10 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { storage } from '@root/firebase'
 import { useState } from 'react'
-import { UserProfileType } from '@/hook/useCurrentAuth'
+import { IUserProfile } from '@/interfaces/IUserProfile'
 
 interface Props {
-  userProfile: UserProfileType | null
+  userProfile: IUserProfile | null
   imageSetValue: (updatedImages: string[]) => void
   setFiles: (files: (prevFiles: File[]) => File[]) => void
 }
