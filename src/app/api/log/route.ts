@@ -4,16 +4,20 @@ import { db } from '@root/firebase'
 
 export const POST = async (request: Request) => {
   try {
-    const { uid, error } = await request.json()
+    const { error, stack } = await request.json()
+    console.log('Request received:', { error, stack }) // 디버깅 로그
+
     const errorRef = collection(db, 'error_logs')
     await addDoc(errorRef, {
-      uid,
       error,
+      stack,
       timestamp: new Date(),
     })
+    console.log('Error logged to Firestore') // 디버깅 로그
+
     return NextResponse.json({ status: 'success' })
   } catch (error) {
-    console.error('Error creating notifications:', error)
-    return NextResponse.json({ error: 'Error creating notifications' }, { status: 500 })
+    console.error('Error logging to Firestore:', error) // 디버깅 로그
+    return NextResponse.json({ error: 'Error logging to Firestore' }, { status: 500 })
   }
 }
