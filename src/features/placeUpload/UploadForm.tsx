@@ -104,12 +104,13 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: 'New Honey Place',
+          title: name,
           body: '새로운 맛집이 등록되었습니다!',
         }),
       })
 
       const result = await response.json()
+      console.log(result)
 
       localStorage.removeItem('name')
       localStorage.removeItem('images')
