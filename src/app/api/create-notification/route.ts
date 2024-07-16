@@ -13,16 +13,34 @@ export const POST = async (request: Request) => {
     if (!usersSnapshot.empty) {
       const timestamp = Date.now()
 
-      usersSnapshot.forEach(async (doc) => {
-        const uid = doc.id // user의 uid
+      const notificationPromises = usersSnapshot.docs.map((doc) => {
+        const uid = doc.id
         const newNotificationRef = ref(database, `notifications/${uid}/${timestamp}`)
-        await set(newNotificationRef, {
+        return set(newNotificationRef, {
           title,
           body,
           timestamp,
           read: false,
+        }).catch(async (error) => {
+          try {
+            await fetch('/api/log', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                uid,
+                error: error.message,
+              }),
+            })
+          } catch (logError) {
+            console.error('Error logging notification error:', logError)
+          }
+          throw error
         })
       })
+
+      await Promise.allSettled(notificationPromises)
 
       return NextResponse.json({ message: 'Notifications created successfully' })
     } else {
