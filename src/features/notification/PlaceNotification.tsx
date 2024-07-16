@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { database, fireauth } from '@root/firebase'
 import { ref, onValue, set, push } from 'firebase/database'
 import { signOut } from 'firebase/auth'
-import useCurrentAuth from '@/hook/useCurrentAuth'
 import Link from 'next/link'
+import { IUserProfile } from '@/interfaces/IUserProfile'
 
 interface Notification {
   title: string
@@ -19,9 +19,8 @@ const formatDate = (timestamp: number) => {
   return date.toLocaleString()
 }
 
-const PlaceNotification = () => {
+const PlaceNotification = ({ userProfile }: { userProfile: IUserProfile }) => {
   const [messages, setMessages] = useState<Notification[]>([])
-  const userProfile = useCurrentAuth()
 
   const logOut = async (e: any) => {
     e.preventDefault()
@@ -48,6 +47,27 @@ const PlaceNotification = () => {
     })
   }, [userProfile])
 
+  const handleDelete = async (notificationId: number) => {
+    try {
+      const response = await fetch('/api/delete-notification', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uid: userProfile?.uid, notificationId }),
+      })
+      if (response.ok) {
+        // 성공적으로 삭제된 경우, 별도로 상태를 업데이트할 필요가 없음
+        // onValue 리스너가 자동으로 상태를 업데이트할 것임
+        console.log('Notification deleted successfully')
+      } else {
+        console.error('Failed to delete notification')
+      }
+    } catch (error) {
+      console.error('Error deleting notification:', error)
+    }
+  }
+
   const userCheck = () => {
     if (!userProfile) {
       return <p>로그인이 필요합니다</p>
@@ -63,21 +83,36 @@ const PlaceNotification = () => {
         {userCheck()}
         {messages.length > 0 &&
           messages.map((message, index) => (
-            <div key={index}>
-              <p>{message.title}</p>
-              <p>{message.body}</p>
-              <p>{formatDate(message.timestamp)}</p>
+            <div className='flex justify-between' key={index}>
+              <div>
+                <p className='font-semibold'>{message.title}</p>
+                <p className='text-gray-700'>{message.body}</p>
+                <p className='text-gray-600 text-xs'>{formatDate(message.timestamp)}</p>
+              </div>
+              <div className='flex items-end'>
+                <span
+                  onClick={() => handleDelete(message.timestamp)}
+                  className='shadow-sm border rounded-md text-xs text-gray-600 p-2 hover:scale-105 cursor-pointer'
+                >
+                  삭제
+                </span>
+              </div>
             </div>
           ))}
       </div>
       <div className='w-full flex justify-end pr-5 pb-3'>
         {userProfile ? (
-          <button className='text-sm p-2 bg-sky-500 text-white rounded-sm' onClick={logOut}>
+          <button
+            className='p-2 bg-sky-500 rounded-md text-xs text-white hover:bg-sky-400 cursor-pointer'
+            onClick={logOut}
+          >
             로그아웃
           </button>
         ) : (
           <Link href='/auth/login'>
-            <button className='text-sm p-2 bg-sky-500 text-white rounded-sm'>로그인</button>
+            <button className='p-2 bg-sky-500 rounded-md text-xs text-white hover:bg-sky-400 cursor-pointer'>
+              로그인
+            </button>
           </Link>
         )}
       </div>

@@ -60,7 +60,7 @@ const Header = () => {
       </div>
       {showNotifications && (
         <div className='absolute right-0 top-[48px] w-[300px] bg-white shadow-lg'>
-          <PlaceNotification />
+          <PlaceNotification userProfile={userProfile} />
         </div>
       )}
     </header>
