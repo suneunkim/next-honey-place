@@ -14,7 +14,7 @@ export const POST = async (request: Request) => {
       const timestamp = Date.now()
 
       usersSnapshot.forEach(async (doc) => {
-        const uid = doc.id
+        const uid = doc.id // user의 uid
         const newNotificationRef = ref(database, `notifications/${uid}/${timestamp}`)
         await set(newNotificationRef, {
           title,

@@ -3,15 +3,10 @@ import { useEffect, useState } from 'react'
 import { db, fireauth } from '@root/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
-
-export type UserProfileType = {
-  email: string
-  nickname: string
-  uid: string
-}
+import { IUserProfile } from '@/interfaces/IUserProfile'
 
 const useCurrentAuth = () => {
-  const [userProfile, setUserProfile] = useState<UserProfileType | null>(null)
+  const [userProfile, setUserProfile] = useState<IUserProfile | null>(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(fireauth, async (user) => {
