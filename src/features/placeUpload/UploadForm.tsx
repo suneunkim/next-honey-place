@@ -93,6 +93,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
         address,
         images: uploadedImageFiles,
         createdAt: new Date(),
+        nickname: userProfile.nickname,
       }
 
       await addHoneyPlace(newPlace)
@@ -130,7 +131,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
   const textArea =
     'w-full h-[144px] px-[16px] py-[16px] gap-[8px] rounded-[4px] border border-[#c7c7c7] text-[14px] font-medium leading-[22px] text-left focus:border-[#3a5cf3] focus:outline-none'
   const imagePreviewContainer =
-    'border border-[#e4e4e4] min-w-[102px] h-[102px] flex flex-col items-center justify-center rounded-[6px] gap-[4px] overflow-hidden relative'
+    'border border-[#e4e4e4] max-w-[102px] h-[102px] flex flex-col items-center justify-center rounded-[6px] gap-[4px] overflow-hidden relative'
   const 대표이미지 =
     'absolute top-[4px] left-[4px] w-[36px] h-[20px] bg-white border border-[#e4e4e4] text-center text-[10px] font-semibold leading-[18px] text-[#1c1c1c] rounded-[4px] px-[6px] box-border'
 
@@ -153,7 +154,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
                   >
                     <ImageRemoveIcon />
                   </button>
-                  <img src={image} alt='image' className='max-w-full max-h-full' />
+                  <img src={image} alt='image' className='w-full h-full object-cover' />
                 </div>
               ))}
             </article>

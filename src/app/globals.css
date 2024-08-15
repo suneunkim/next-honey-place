@@ -24,3 +24,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1; /* 핸들의 배경색 변경 */
 }
+
+/* styles/globals.css */
+:root {
+  --swiper-pagination-color: #FFFFFF; /* 페이지네이션 점 색상 */
+}

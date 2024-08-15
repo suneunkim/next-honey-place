@@ -3,6 +3,7 @@
 import UploadForm from '@/features/placeUpload/UploadForm'
 import SearchModal from '@/features/placeUpload/visitedPlace/SearchModal'
 import useModalStore from '@/stores/useModalStore'
+import Title from '@/shared/components/common/Title'
 
 const LogtitleClass =
   'text-[16px] font-bold leading-[22px] text-center text-[#1c1c1c] py-[13px] mb-[20px]'
@@ -15,9 +16,7 @@ const UploadPage = () => {
   return (
     <>
       <div className='mt-7 px-5'>
-        <h2 data-cy='upload-title' className={LogtitleClass}>
-          꿀플레이스 로그 등록
-        </h2>
+        <Title data-cy='upload-title'>꿀플레이스 로그 등록</Title>
         <UploadForm onModalOpen={openSearchModal} />
       </div>
       {isSearchModal && <SearchModal onModalClose={closeSearchModal} />}
