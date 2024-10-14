@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import useStore from '@/stores/useStore'
 import useCurrentAuth from '@/hook/useCurrentAuth'
 import useImageUpload from './useImageUpload'
-import { addHoneyPlace } from '@/utils/firebaseUtils'
+import { addHoneyPlace, uploadMultipleFilesToStorage } from '@/utils/firebaseUtils'
 interface FormValues {
   name: string
   address: string
@@ -47,12 +47,10 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     setValue('images', value)
   }
 
-  const { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage, uploadFile } =
-    useImageUpload({
-      userProfile,
-      imageSetValue,
-      setFiles,
-    })
+  const { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage } = useImageUpload({
+    imageSetValue,
+    setFiles,
+  })
 
   // 새로고침에도 이미지 유지를 위해서 watch 대신 useEffect와 setValue 사용
   useEffect(() => {
@@ -80,12 +78,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     }
 
     try {
-      const uploadedImageFiles = await Promise.all(
-        files.map(async (file) => {
-          const url = await uploadFile(file)
-          return url
-        })
-      )
+      const uploadedImageFiles = await uploadMultipleFilesToStorage(files, userProfile.uid)
 
       const newPlace = {
         name,

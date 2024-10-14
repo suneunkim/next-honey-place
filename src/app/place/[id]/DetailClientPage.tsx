@@ -6,10 +6,13 @@ import Footer from '@/shared/components/common/Footer'
 import Title from '@/shared/components/common/Title'
 import NicknameField from './../../../features/detailPlaceLog/NicknameField'
 import DetatilImage from '@/features/detailPlaceLog/DetatilImage'
+import { deletePlaceAndImages } from '@/utils/firebaseUtils'
+import { useRouter } from 'next/navigation'
 
 const DetailClientPage = ({ initialPlace }: { initialPlace: HoneyPlace | null }) => {
   const [place, setPlace] = useState<HoneyPlace | null>(null)
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     if (initialPlace) {
@@ -18,11 +21,23 @@ const DetailClientPage = ({ initialPlace }: { initialPlace: HoneyPlace | null })
     }
   }, [initialPlace])
 
+  const handleDelete = async () => {
+    try {
+      await deletePlaceAndImages(initialPlace?.id, initialPlace?.images!)
+      console.log('handleDelete 실행')
+      router.push('/')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const title = 'text-[14px] font-semibold leading-[22px] text-left text-[#5f5f5f]'
 
   return (
     <div className='mt-7 px-5'>
-      <Title option>{place?.name}</Title>
+      <Title onDelete={handleDelete} option>
+        {place?.name}
+      </Title>
       <section>
         <NicknameField nickname={place?.nickname} />
         <div className='relative'>

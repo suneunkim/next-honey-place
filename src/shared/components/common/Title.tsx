@@ -1,28 +1,30 @@
 'use client'
 
 import EditModal from '@/features/detailPlaceLog/EditModal'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 interface Props {
   children: React.ReactNode
   option?: boolean
   'data-cy'?: string
+  onDelete: () => void
 }
 
-const Title = ({ children, option, ...rest }: Props) => {
+const Title = ({ children, option, onDelete, ...rest }: Props) => {
   const [editModal, setEditModal] = useState(false)
   const router = useRouter()
+  const { id } = useParams()
 
   const handleBack = () => {
     router.back()
   }
 
-  const handleEditModal = () => {
+  const openEditModal = () => {
     setEditModal(true)
   }
 
-  const handleCloseModal = () => {
+  const closeEditModal = () => {
     setEditModal(false)
   }
 
@@ -63,13 +65,13 @@ const Title = ({ children, option, ...rest }: Props) => {
           xmlns='http://www.w3.org/2000/svg'
           aria-hidden='true'
           className='w-5 text-gray-700 cursor-pointer'
-          onClick={handleEditModal}
+          onClick={openEditModal}
         >
           <path d='M3 10a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM8.5 10a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM15.5 8.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z'></path>
         </svg>
       )}
 
-      {editModal && <EditModal onClose={handleCloseModal} />}
+      {editModal && <EditModal id={id} onClose={closeEditModal} onDelete={onDelete} />}
     </div>
   )
 }

@@ -1,16 +1,13 @@
 'use client'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import { storage } from '@root/firebase'
+
 import { useState } from 'react'
-import { IUserProfile } from '@/interfaces/IUserProfile'
 
 interface Props {
-  userProfile: IUserProfile | null
   imageSetValue: (updatedImages: string[]) => void
   setFiles: (files: (prevFiles: File[]) => File[]) => void
 }
 
-const useImageUpload = ({ userProfile, imageSetValue, setFiles }: Props) => {
+const useImageUpload = ({ imageSetValue, setFiles }: Props) => {
   const [imageURLs, setImageURLs] = useState<string[]>([])
 
   // 사진 등록으로 선택한 파일
@@ -36,20 +33,9 @@ const useImageUpload = ({ userProfile, imageSetValue, setFiles }: Props) => {
       localStorage.setItem('images', JSON.stringify(updatedImages))
       return updatedImages
     })
-
-    //setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index))
   }
 
-  // 파이어베이스 스토리지 업로드
-  const uploadFile = async (file: File) => {
-    const uniqueFileName = `${Date.now()}_${file.name}` // 파일 이름 고유화
-    const storageRef = ref(storage, `images/${userProfile?.uid}/${uniqueFileName}`)
-    await uploadBytes(storageRef, file)
-    const url = await getDownloadURL(storageRef)
-    return url
-  }
-
-  return { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage, uploadFile }
+  return { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage }
 }
 
 export default useImageUpload
