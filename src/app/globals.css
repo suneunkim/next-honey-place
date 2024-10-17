@@ -27,5 +27,9 @@
 
 /* styles/globals.css */
 :root {
-  --swiper-pagination-color: #FFFFFF; /* 페이지네이션 점 색상 */
+  --swiper-pagination-color: #ffffff; /* 페이지네이션 점 색상 */
+}
+
+.infowindow {
+  @apply bg-white text-gray-900 text-sm font-medium text-center h-6 rounded-md px-2;
 }
