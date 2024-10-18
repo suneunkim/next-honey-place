@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode
   option?: boolean
   'data-cy'?: string
-  onDelete: () => void
+  onDelete?: () => void
 }
 
 const Title = ({ children, option, onDelete, ...rest }: Props) => {
@@ -71,7 +71,7 @@ const Title = ({ children, option, onDelete, ...rest }: Props) => {
         </svg>
       )}
 
-      {editModal && <EditModal id={id} onClose={closeEditModal} onDelete={onDelete} />}
+      {editModal && onDelete && <EditModal id={id} onClose={closeEditModal} onDelete={onDelete} />}
     </div>
   )
 }
