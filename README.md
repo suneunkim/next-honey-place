@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# HoneyPlace
 
-## Getting Started
+HoneyPlace는 사용자가 다녀온 맛집을 공유하고, 다른 사용자들과 정보를 쉽게 교환할 수 있는 웹 애플리케이션입니다. 사용자는 맛집을 지도에서 확인하고, 게시물을 등록하며, 사진과 설명을 추가할 수 있습니다.
 
-First, run the development server:
+<img width="1081" alt="image" src="https://github.com/user-attachments/assets/1931b053-7ce6-45de-aaf9-15c195911799">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 프로젝트 기간
+- 2024.07 (12일)
+- 2024.10 (2일) - Footer의 지도 탭 추가
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 사용 기술
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1729404817727?alt=media&token=d0751933-394d-4f43-a617-1fe4231aa75c)](https://github.com/msdio/stackticon)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 주요 기능
 
-## Learn More
+**게시물 가상화 리스트**
+- react-virtuoso를 사용해 대량의 게시물을 성능 저하 없이 스크롤할 수 있는 [가상화 리스트 구현](https://velog.io/@hisy4429_sun/React-%EA%B0%80%EC%83%81%ED%99%94-%EB%A6%AC%EC%8A%A4%ED%8A%B8-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
+  
+**장소 검색 최적화**
+- 디바운스 적용으로 네트워크 요청 횟수를 15회에서 6회로 줄여 검색 성능을 최적화
+  
+**카카오 지도 API 연동**
+- 게시물 등록 시 현재 위치를 이용해 장소를 선택할 수 있음
+- 지도 탭에서 등록된 장소의 위치를 이미지 마커로 표시하고, 마커 클릭 시 가게 정보와 상세 페이지로 연결
+  
+**Firebase 알림 기능**
+- 새로운 맛집 등록 시 실시간 알림 전송
+- Firebase Firestore를 통한 [오류 로깅 기능](https://velog.io/@hisy4429_sun/Firebase%EC%99%80-Next.js%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%9E%91%EC%97%85-%EC%98%A4%EB%A5%98-%EB%A1%9C%EA%B9%85) (비동기 알림을 처리 하는 과정의 오류가 발생 시 기록하는 시스템 추가)
+  
+**폼 상태 관리 및 유효성 검사**
+- React Hook Form을 사용하여 입력 완료 시에만 제출 버튼이 활성화되는 폼 유효성 검사 구현
+  
+**CI/CD 파이프라인과 E2E 테스트 적용**
+- GitHub Actions를 사용해 PR 시 [자동화된 GPT 리뷰 코멘트 작성](https://velog.io/@hisy4429_sun/GitHub-Actions-%EC%9B%8C%ED%81%AC%ED%94%8C%EB%A1%9C%EC%9A%B0%EC%97%90-Cypress-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0)
+- 업로드 페이지의 모달창, 새로운 장소 등록, 주소 검색 기능등의 과정을 [Cypress로 E2E 테스트를 통해 흐름 검증](https://velog.io/@hisy4429_sun/%EC%97%85%EB%A1%9C%EB%93%9C-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%97%90%EC%84%9C-Cypress%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8)
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 성능 개선과 사용자 경험 최적화
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**가상화 리스트 적용**
+- 대량의 게시물 데이터를 처리하기 위해 react-virtuoso를 사용한 가상화 리스트를 적용했습니다. 이로 인해 뷰포트에 보이는 게시물만 DOM에 렌더링되어, 성능 최적화가 이루어졌습니다.
 
-## Deploy on Vercel
+**디바운스 적용**
+- 장소 검색 시 발생하는 네트워크 요청이 과도하게 발생하지 않도록 디바운스(300ms)를 적용하여, 검색 요청 횟수를 15회에서 6회로 줄이고 성능을 개선했습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**브라우저 스크롤 최적화**
+- react-virtuoso의 useWindowScroll 속성을 사용하여, 브라우저 스크롤과 가상화 리스트의 스크롤을 분리하지 않고 자연스러운 사용자 경험을 제공하도록 성능을 향상시켰습니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### 카카오 지도 커스텀 오버레이
+
+**기본 인포윈도우 제한**
+- 카카오 지도 API의 기본 인포윈도우는 CSS 수정이 불가능하여, 장소 정보 표시에서 유연성이 부족했습니다.
+  
+**커스텀 오버레이 적용**
+- 이를 해결하기 위해 커스텀 오버레이를 사용해 장소 이름을 마커 위에 표시하고, 마우스 이벤트를 통해 동적으로 장소 정보를 보여줄 수 있도록 구현했습니다. 이를 통해 사용자에게 보다 직관적인 인터페이스를 제공했습니다.
+- 마커에 마우스를 올렸을 때 가게 이름이 오버레이로 표시되며, 마우스를 뗐을 때는 자동으로 사라집니다.
+- 마커를 클릭하면 선택된 장소의 상세 정보를 하단에 표시하고, '상세보기' 버튼을 통해 해당 장소의 상세 페이지로 이동할 수 있습니다.
+
+
+### E2E 테스트 및 상태 관리
+**E2E 테스트**
+- Cypress를 사용해 업로드 페이지의 사진 등록, 장소 검색, 설명 입력 및 등록 버튼 활성화와 같은 주요 흐름을 검증했습니다.
+- 이를 통해 등록 과정이 정상적으로 이루어지도록 테스트를 적용했습니다.
+
+**사진 업로드 테스트**
+- 사용자가 사진을 정상적으로 업로드하고 대표 이미지를 선택할 수 있는지 확인
+  
+**장소 검색 및 등록 테스트**
+- 장소 검색 결과가 없을 경우 새로운 장소를 추가할 수 있는지, 등록된 장소 정보가 정상적으로 저장되는지 확인
+  
+**폼 유효성 테스트**
+- 필수 항목(사진, 가게 이름, 설명)이 모두 입력되었을 때만 등록 버튼이 활성화되는지 확인
+  
+**상태 관리**
+- Zustand를 사용해 전역 상태를 관리하고, 페이지 이동 간 선택된 장소 정보가 유지되도록 처리했습니다.
+- 사용자는 장소 검색, 새로운 장소 등록, 주소 설정의 3단계 프로세스를 순차적으로 처리하며, 등록이 완료되면 이전 페이지로 돌아가 가게 이름이 표시됩니다.
+
+**로컬 스토리지**
+- 새로고침 시 업로드된 이미지가 유지되도록 로컬 스토리지를 활용해 상태를 저장하고, 새로고침 후에도 이미지와 입력된 정보가 유지되도록 구현했습니다.
