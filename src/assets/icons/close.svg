@@ -6,14 +6,14 @@
   xmlns="http://www.w3.org/2000/svg"
 >
   <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
+    fillRule="evenodd"
+    clipRule="evenodd"
     d="M102 3.05268L87.0527 18L86 16.9473L100.947 2L102 3.05268Z"
     fill="#1C1C1C"
   />
   <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
+    fillRule="evenodd"
+    clipRule="evenodd"
     d="M87.0527 2L102 16.9473L100.947 18L86 3.05268L87.0527 2Z"
     fill="#1C1C1C"
   />

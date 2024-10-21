@@ -12,6 +12,9 @@ export interface HoneyPlace {
   description: string
   address: string
   id: string
+  nickname: string
+  latitude?: string
+  longitude?: string
 }
 
 export interface uploadNewPlace {

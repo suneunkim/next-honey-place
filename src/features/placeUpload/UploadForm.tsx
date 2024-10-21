@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import useStore from '@/stores/useStore'
 import useCurrentAuth from '@/hook/useCurrentAuth'
 import useImageUpload from './useImageUpload'
-import { addHoneyPlace } from '@/utils/firebaseUtils'
+import { addHoneyPlace, uploadMultipleFilesToStorage } from '@/utils/firebaseUtils'
 interface FormValues {
   name: string
   address: string
@@ -47,12 +47,10 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     setValue('images', value)
   }
 
-  const { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage, uploadFile } =
-    useImageUpload({
-      userProfile,
-      imageSetValue,
-      setFiles,
-    })
+  const { imageURLs, setImageURLs, handleFileSelect, handleRemoveImage } = useImageUpload({
+    imageSetValue,
+    setFiles,
+  })
 
   // 새로고침에도 이미지 유지를 위해서 watch 대신 useEffect와 setValue 사용
   useEffect(() => {
@@ -80,12 +78,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
     }
 
     try {
-      const uploadedImageFiles = await Promise.all(
-        files.map(async (file) => {
-          const url = await uploadFile(file)
-          return url
-        })
-      )
+      const uploadedImageFiles = await uploadMultipleFilesToStorage(files, userProfile.uid)
 
       const newPlace = {
         name,
@@ -93,6 +86,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
         address,
         images: uploadedImageFiles,
         createdAt: new Date(),
+        nickname: userProfile.nickname,
       }
 
       await addHoneyPlace(newPlace)
@@ -130,7 +124,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
   const textArea =
     'w-full h-[144px] px-[16px] py-[16px] gap-[8px] rounded-[4px] border border-[#c7c7c7] text-[14px] font-medium leading-[22px] text-left focus:border-[#3a5cf3] focus:outline-none'
   const imagePreviewContainer =
-    'border border-[#e4e4e4] min-w-[102px] h-[102px] flex flex-col items-center justify-center rounded-[6px] gap-[4px] overflow-hidden relative'
+    'border border-[#e4e4e4] max-w-[102px] h-[102px] flex flex-col items-center justify-center rounded-[6px] gap-[4px] overflow-hidden relative'
   const 대표이미지 =
     'absolute top-[4px] left-[4px] w-[36px] h-[20px] bg-white border border-[#e4e4e4] text-center text-[10px] font-semibold leading-[18px] text-[#1c1c1c] rounded-[4px] px-[6px] box-border'
 
@@ -153,7 +147,7 @@ const UploadForm = ({ onModalOpen }: { onModalOpen: () => void }) => {
                   >
                     <ImageRemoveIcon />
                   </button>
-                  <img src={image} alt='image' className='max-w-full max-h-full' />
+                  <img src={image} alt='image' className='w-full h-full object-cover' />
                 </div>
               ))}
             </article>
